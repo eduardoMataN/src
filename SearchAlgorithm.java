@@ -8,6 +8,7 @@ public class SearchAlgorithm {
     Schedule solution = problem.getEmptySchedule();
 
     // YOUR CODE HERE
+    
 
     return solution;
   }
