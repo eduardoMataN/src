@@ -1,3 +1,4 @@
+import java.util.*;
 public class SimulatedAnnealing {
     public double increment=0;
     public double temprature=500;
@@ -11,11 +12,9 @@ public class SimulatedAnnealing {
         this.generator=new randomGenerator()
         this.solution=solution;
     }
-    public static double probability (double f1, double f2, double temperature){
-        if(f1>f2){
-            return f1;
-        }
-        return Math.exp((f1-f2)/temperature);
+    public static double probability (double f1, double f2){
+        
+        return Math.exp((f1-f2)/this.temperature);
     }
 
     public static void coolDown(){
@@ -36,9 +35,22 @@ public class SimulatedAnnealing {
                 this.schedule[(int)current[0]][(int)current[1]]=(int)current[2]
                 this.generator.schedule=this.schedule;
                 this.increment=newIncrement;
+                this.scheduledCourses+=1;
+            }else{
+                Random random=new Random();
+                double check=random.nextDouble*1;
+                if(probability(this.increment, newIncrement)>check){
+                    current=next;
+                    this.schedule[(int)current[0]][(int)current[1]]=(int)current[2]
+                    this.generator.schedule=this.schedule;
+                    this.increment=newIncrement;
+                    this.scheduledCourses+=1;
+                }
             }
+            coolDown();
             
         }
+        return this.schedule;
     }
     
 
