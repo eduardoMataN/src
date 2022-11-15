@@ -5,6 +5,7 @@ public class randomGenerator {
     public Schedule schedule;
     public SchedulingProblem problem;
     public static final double DISTANCE_PENALTY = 2.5d;
+    public ArrayList<Integer> scheduledClasses = new ArrayList<Integer>();
 
 
     public randomGenerator(){
@@ -22,12 +23,15 @@ public class randomGenerator {
         double value=0;
         double[] result={-1,-1,-1,-1};
         Random random=new Random();
-        int randomClassIndex=((int) (random.nextDouble() * 70)) + 30;
+        int randomClassIndex=(int) (random.nextDouble() * this.problem.courses.size());
         int randomRoomIndex=(int) (random.nextDouble() * this.problem.rooms.size());
         int randomTimeIndex=(int)(random.nextDouble()*10);
         if((this.schedule.schedule[randomRoomIndex][randomTimeIndex]<0) ||(this.schedule.schedule[randomRoomIndex][randomTimeIndex]>this.problem.rooms.size())){
             Room currentRoom=this.problem.rooms.get(randomRoomIndex);
             Course currentCourse=this.problem.courses.get(randomClassIndex);
+            if(this.scheduledClasses.contains(randomClassIndex)){
+                return result;
+            }
             if(currentCourse.timeSlotValues[randomTimeIndex]!=0){
                 value+=currentCourse.timeSlotValues[randomTimeIndex];
                 value+=currentCourse.value;
@@ -44,6 +48,7 @@ public class randomGenerator {
                 result[1]=Double.valueOf(randomTimeIndex);
                 result[2]=Double.valueOf(randomClassIndex);
                 result[3]=value;
+                scheduledClasses.add(randomClassIndex);
                 
                 
                 

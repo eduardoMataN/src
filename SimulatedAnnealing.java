@@ -11,7 +11,7 @@ public class SimulatedAnnealing {
 
     public SimulatedAnnealing(SchedulingProblem problem, Schedule solution) {
         this.problem = problem;
-        this.generator = new randomGenerator();
+        this.generator = new randomGenerator(problem, solution);
         this.solution = solution;
     }
 
@@ -34,13 +34,18 @@ public class SimulatedAnnealing {
         while(this.temperature>1 && this.scheduledCourses<10){
             double[] next=generator.generate();
             double newIncrement=next[3]-current[3];
-            if(newIncrement>this.increment){
+            if(next[0]==-1){
+                coolDown();
+            }
+            else if(newIncrement>this.increment){
+
                 current=next;
                 this.solution.schedule[(int)current[0]][(int)current[1]]=(int)current[2];
                 this.generator.schedule=this.solution;
                 this.increment=newIncrement;
                 this.scheduledCourses+=1;
             }else{
+
                 Random random=new Random();
                 double check=random.nextDouble()*1;
                 if(probability(this.increment, newIncrement)>check){
@@ -50,6 +55,7 @@ public class SimulatedAnnealing {
                     this.increment=newIncrement;
                     this.scheduledCourses+=1;
                 }
+
             }
             coolDown();
             
