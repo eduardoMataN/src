@@ -6,8 +6,8 @@ import java.util.Random;
  */
 
 // Main class
-public class genericalg {
 
+public class genetic {
     Population population = new Population();
     Individual fittest;
     Individual secondFittest;
@@ -17,49 +17,32 @@ public class genericalg {
 
         Random rn = new Random();
 
-        genericalg demo = new genericalg();
-
+        genetic run = new genetic();
         // Initialize population
-        demo.population.initializePopulation(population.length);
+        run.population.initializePopulation(population.length);
 
-        // Calculate fitness of each individual
-        demo.population.calculateFitness();
-
-        System.out.println("Generation: " + demo.generationCount + " Fittest: " + demo.population.fittest);
+        // Calculate fitness of each individual population
+        run.population.calculateFitness();
 
         // While population gets an individual with maximum fitness
-        while (demo.population.fittest < 5) {
-            ++demo.generationCount;
+        while (run.population.fittest < 5) {
+            ++run.generationCount;
 
             // Do selection
-            demo.selection();
-
-            // Do crossover
-            demo.crossover();
+            run.selection();
 
             // Do mutation under a random probability
             if (rn.nextInt() % 7 < 5) {
-                demo.mutation();
+                run.mutation();
             }
 
             // Add fittest offspring to population
-            demo.addFittestOffspring();
+            run.addFittestOffspring();
 
             // Calculate new fitness value
-            demo.population.calculateFitness();
-
-            System.out.println("Generation: " + demo.generationCount + " Fittest: " + demo.population.fittest);
+            run.population.calculateFitness();
         }
-
-        System.out.println("\nSolution found in generation " + demo.generationCount);
-        System.out.println("Fitness: " + demo.population.getFittest().fitness);
-        System.out.print("Genes: ");
-        for (int i = 0; i < 5; i++) {
-            System.out.print(demo.population.getFittest().genes[i]);
-        }
-
-        System.out.println("");
-
+        System.out.println("Fitness: " + run.population.getFittest().fitness);
     }
 
     // Selection
@@ -70,23 +53,6 @@ public class genericalg {
 
         // Select the second most fittest individual
         secondFittest = population.getSecondFittest();
-    }
-
-    // Crossover
-    void crossover() {
-        Random rn = new Random();
-
-        // Select a random crossover point
-        int crossOverPoint = rn.nextInt(population.individuals[0].geneLength);
-
-        // Swap values among parents
-        for (int i = 0; i < crossOverPoint; i++) {
-            int temp = fittest.genes[i];
-            fittest.genes[i] = secondFittest.genes[i];
-            secondFittest.genes[i] = temp;
-
-        }
-
     }
 
     // Mutation
@@ -136,7 +102,7 @@ public class genericalg {
 
 }
 
-// Individual class
+// Individual class for the main.java class and slot info
 class Individual {
 
     int fitness = 0;
