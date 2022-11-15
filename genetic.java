@@ -135,8 +135,6 @@ class Individual {
 
 // Population class
 class Population {
-    long seed = 0; //might need to fix
-    SchedulingProblem population = new SchedulingProblem(seed); //sets schedule as population to use
     population.createRandomInstance(nBuildings, nRooms, nCourses);//initialize population
     int popSize = population.length;
     Individual[] individuals = new Individual[popSize];
