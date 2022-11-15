@@ -6,21 +6,26 @@ public class randomGenerator {
     public SchedulingProblem problem;
     public static final double DISTANCE_PENALTY = 2.5d;
 
-    public void randomGenerator(SchedulingProblem problem, Schedule solution){
+
+    public randomGenerator(){
+
+    }
+
+    public randomGenerator(SchedulingProblem problem, Schedule solution){
         this.problem=problem;
-        this.courses=problem.courses.size()
+        this.courses=problem.courses.size();
         this.schedule=solution;
     }
 
     public double[] generate(){
         //Index 0 is room, Index 1 is timeslot, Index 2 is Course, Index 3 is Value
         double value=0;
-        double[4] result=[-1,-1,-1,-1];
+        double[] result={-1,-1,-1,-1};
         Random random=new Random();
         int randomClassIndex=((int) (random.nextDouble() * 70)) + 30;
         int randomRoomIndex=(int) (random.nextDouble() * this.problem.rooms.size());
         int randomTimeIndex=(int)(random.nextDouble()*10);
-        if((this.schedule[randomRoomIndex][randomTimeIndex]<0) ||(this.schedule[randomRoomIndex][randomTimeIndex]>this.problem.rooms.size())){
+        if((this.schedule.schedule[randomRoomIndex][randomTimeIndex]<0) ||(this.schedule.schedule[randomRoomIndex][randomTimeIndex]>this.problem.rooms.size())){
             Room currentRoom=this.problem.rooms.get(randomRoomIndex);
             Course currentCourse=this.problem.courses.get(randomClassIndex);
             if(currentCourse.timeSlotValues[randomTimeIndex]!=0){
@@ -35,9 +40,9 @@ public class randomGenerator {
 
                     value -= DISTANCE_PENALTY * dist;
                 }
-                result[0]=new Double(randomRoomIndex);
-                result[1]=new Double(randomTimeIndex);
-                result[2]=new Double(randomClassIndex);
+                result[0]=Double.valueOf(randomRoomIndex);
+                result[1]=Double.valueOf(randomTimeIndex);
+                result[2]=Double.valueOf(randomClassIndex);
                 result[3]=value;
                 
                 

@@ -8,7 +8,8 @@ public class SearchAlgorithm {
     Schedule solution = problem.getEmptySchedule();
 
     // YOUR CODE HERE
-    
+    SimulatedAnnealing simulation=new SimulatedAnnealing(problem, solution);
+    solution=simulation.getSolution();
 
     return solution;
   }
