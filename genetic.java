@@ -21,31 +21,33 @@ public class genetic {
         double[] current=generator.generate();
 
         // Evaluate each individual population=generated solution
-        eval(current);
+        double evaluated= eval(current);
 
         // While population gets best solution
         while (int i>0) {
             ++i;
 
             // Do selection
-            print(eval(current));
+            System.out.println(evaluated);
 
             // Do mutation under a random probability
             if (rn.nextInt() % 7 < 5) {
-                mutation(current);
+                double mutated=mutation(current);
             }
 
             // Add best offspring to population
-            temp = addOffspring(current);
+            double temp = addOffspring(mutated);
 
             // Calculate new evaluation
-            best = eval(temp);
+            double[] best = eval(temp);
         }
         System.out.println("Best choice: " + best);
     }
 
-    void eval() {
+    public double eval(double[] current2) {
         // which returns back the best solution
+        return;
+
     }
 
     // Mutation
@@ -63,8 +65,8 @@ public class genetic {
         }
     }
 
-    void addOffspring() {
+    public double addOffspring(double mutated) {
         // adds new offspring into population
-
+        return current.append.mutated;
     }
 }
